@@ -1,7 +1,16 @@
-version: "3.9"
 services:
+  mariadb:
+    image: mariadb
+    container_name: mariadb
+    restart: unless-stopped
+    volumes:
+      - ./data/mariadb:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootpass
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_PASSWORD=nextcloudpass
 
-  # 1. Nextcloud
   nextcloud:
     image: nextcloud
     container_name: nextcloud
@@ -17,3 +26,49 @@ services:
       - MYSQL_DATABASE=nextcloud
       - MYSQL_USER=nextcloud
       - MYSQL_HOST=mariadb
+
+  immich-db:
+    image: postgres:14
+    container_name: immich-db
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=immichpass
+      - POSTGRES_USER=immich
+      - POSTGRES_DB=immich
+    volumes:
+      - ./data/immich-db:/var/lib/postgresql/data
+  
+  immich-server:
+    image: ghcr.io/immich-app/immich-server:release
+    container_name: immich-server
+    restart: unless-stopped
+    environment:
+      - DB_URL=postgresql://immich:immichpass@immich-db:5432/immich
+    volumes:
+      - ./data/immich:/usr/src/app/upload
+    depends_on:
+      - immich-db
+
+  nginx:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "81:81"     # Admin panel
+      - "443:443"
+    volumes:
+      - ./data/nginx/data:/data
+      - ./data/nginx/letsencrypt:/etc/letsencrypt
+
+  homarr:
+    container_name: homarr
+    image: ghcr.io/homarr-labs/homarr:latest
+    restart: unless-stopped
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
+      - ./homarr/appdata:/appdata
+    environment:
+      - SECRET_ENCRYPTION_KEY=bd75faf78e4c6f19ad9881ca31ae5358a2d11ad448496e1b2a11079529eced69
+    ports:
+      - '7575:7575'
