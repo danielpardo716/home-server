@@ -72,3 +72,26 @@ services:
       - SECRET_ENCRYPTION_KEY=bd75faf78e4c6f19ad9881ca31ae5358a2d11ad448496e1b2a11079529eced69
     ports:
       - '7575:7575'
+
+  homeassistant:
+    image: ghcr.io/home-assistant/home-assistant:stable
+    container_name: homeassistant
+    restart: unless-stopped
+    volumes:
+      - ./data/homeassistant:/config
+    ports:
+      - "8123:8123"
+    depends_on:
+      - mqtt
+
+  mqtt:
+    image: eclipse-mosquitto:latest
+    container_name: mqtt
+    restart: unless-stopped
+    volumes:
+      - ./data/mosquitto/config:/mosquitto/config
+      - ./data/mosquitto/data:/mosquitto/data
+      - ./data/mosquitto/log:/mosquitto/log
+    ports:
+      - "1883:1883"
+      - "9001:9001"
