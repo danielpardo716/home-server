@@ -1,5 +1,5 @@
 services:
-    mariadb:
+  mariadb:
     image: mariadb
     container_name: mariadb
     restart: unless-stopped
