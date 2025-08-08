@@ -11,38 +11,11 @@ services:
       # ⚠️ READ IT CAREFULLY. If you did it wrong, your data could end up writing into a WRONG PATH.
       # ⚠️ 1. FULL path only. No relative path (MUST)
       # ⚠️ 2. Left Stacks Path === Right Stacks Path (MUST)
-      - /opt/stacks:/opt/stacks
+      # - /opt/stacks:/opt/stacks
+      - ~/workspace/home-server:/opt/stacks
     environment:
       # Tell Dockge where to find the stacks
       - DOCKGE_STACKS_DIR=/opt/stacks
-  
-  mariadb:
-    image: mariadb
-    container_name: mariadb
-    restart: unless-stopped
-    volumes:
-      - ./data/mariadb:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=rootpass
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-      - MYSQL_PASSWORD=nextcloudpass
-
-  nextcloud:
-    image: nextcloud
-    container_name: nextcloud
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    volumes:
-      - ./data/nextcloud:/var/www/html
-    depends_on:
-      - mariadb
-    environment:
-      - MYSQL_PASSWORD=nextcloudpass
-      - MYSQL_DATABASE=nextcloud
-      - MYSQL_USER=nextcloud
-      - MYSQL_HOST=mariadb
   
   # immich-server:
   #   image: ghcr.io/immich-app/immich-server:${IMMICH_VERSION:-release}
@@ -104,30 +77,6 @@ services:
   #   shm_size: 128mb
   #   restart: always
 
-  nginx:
-    container_name: nginx-proxy-manager
-    image: jc21/nginx-proxy-manager:latest
-    restart: unless-stopped
-    ports:
-      - "80:80"
-      - "81:81"     # Admin panel
-      - "443:443"
-    volumes:
-      - ./data:/data
-      - ./letsencrypt:/etc/letsencrypt
-
-  homarr:
-    container_name: homarr
-    image: ghcr.io/homarr-labs/homarr:latest
-    restart: unless-stopped
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock # Optional, only if you want docker integration
-      - ./homarr/appdata:/appdata
-    environment:
-      - SECRET_ENCRYPTION_KEY=bd75faf78e4c6f19ad9881ca31ae5358a2d11ad448496e1b2a11079529eced69
-    ports:
-      - '7575:7575'
-
   # homeassistant:
   #   image: ghcr.io/home-assistant/home-assistant:stable
   #   container_name: homeassistant
@@ -152,4 +101,5 @@ services:
   #     - "9001:9001"
 
 volumes:
-  model-cache:
+  - ~/workspace/home-server:/opt/stacks
+  - /var/run/docker.sock:/var/run/docker.sock
