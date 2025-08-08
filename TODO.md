@@ -2,6 +2,9 @@
 - Go through config for all services
 - Investigate backup routines/services
 - Investigate using Portainer
+- Add NetData statistics
+- Add Uptime Kuma
+- Compare dashboard to Glance
 
 ## Nginx
 - Create proxies for all services

@@ -29,5 +29,5 @@ services:
 
 networks:
   default:
-    external: true
     name: home-server
+    external: true
