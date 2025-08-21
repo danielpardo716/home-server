@@ -4,22 +4,22 @@
 
 - System Status:
     - Portainer:
-        href: https://192.168.1.177:9443
+        href: https://${HOST_IP_ADDRESS}:9443
         description: Docker container management
         icon: portainer.png
         widget:
             type: portainer
-            url: https://192.168.1.177:9443
+            url: https://${HOST_IP_ADDRESS}:9443
             env: 3
-            key: ptr_xGKuX/CnKzuZipZHOt+eAFvSQVfuUgv2tUin+s7odQ8=
+            key: ${PORTAINER_API_KEY}
 
     - Nginx Proxy Manager:
-        href: http://192.168.1.177:81
+        href: http://${HOST_IP_ADDRESS}:81
         description: Reverse proxy management
         icon: nginx-proxy-manager.png
         widget:
             type: npm
-            url: http://192.168.1.177:81
+            url: http://${HOST_IP_ADDRESS}:81
             # username:
             # password:
 
@@ -28,14 +28,14 @@
 
 - Services:
     - Nextcloud:
-        href: http://192.168.1.177:8080
+        href: http://${HOST_IP_ADDRESS}:8080
         description: File storage
         icon: nextcloud.png
         widget:
             type: nextcloud
-            url: http://192.168.1.177:8080
-            username: dpardo
-            password: jDycy23eMFOpYm
+            url: http://${HOST_IP_ADDRESS}:8080
+            username: ${USERNAME}
+            password: ${NEXTCLOUD_PASSWORD}
 
 
 - My Third Group:

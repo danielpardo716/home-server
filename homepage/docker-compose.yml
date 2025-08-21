@@ -12,3 +12,8 @@ services:
       - ./config:/app/config
       # - /var/run/docker.sock:/var/run/docker.sock:ro # optional, for docker integrations
     restart: unless-stopped
+
+networks:
+  default:
+    name: home-server
+    external: true

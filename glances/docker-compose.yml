@@ -9,3 +9,8 @@ services:
       - /etc/os-release:/etc/os-release:ro
     environment:
       - "GLANCES_OPT=-w"
+
+networks:
+  default:
+    name: home-server
+    external: true
