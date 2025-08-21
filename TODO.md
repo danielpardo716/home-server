@@ -1,10 +1,10 @@
 ## General
+- Add Glances hardware statistics
+- Add Uptime Kuma uptime monitoring
+- Switch dashboard to Glance
 - Go through config for all services
-- Investigate backup routines/services
-- Investigate using Portainer
-- Add NetData statistics
-- Add Uptime Kuma
-- Compare dashboard to Glance
+- Investigate backup routines/services (Proxmox)
+- Investigate logging/alert services
 
 ## Nginx
 - Create proxies for all services
