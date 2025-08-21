@@ -1,0 +1,44 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- System Status:
+    - Portainer:
+        href: https://192.168.1.177:9443
+        description: Docker container management
+        icon: portainer.png
+        widget:
+            type: portainer
+            url: https://192.168.1.177:9443
+            env: 3
+            key: ptr_xGKuX/CnKzuZipZHOt+eAFvSQVfuUgv2tUin+s7odQ8=
+
+    - Nginx Proxy Manager:
+        href: http://192.168.1.177:81
+        description: Reverse proxy management
+        icon: nginx-proxy-manager.png
+        widget:
+            type: npm
+            url: http://192.168.1.177:81
+            # username:
+            # password:
+
+    # - Glances:
+    #     href: http://
+
+- Services:
+    - Nextcloud:
+        href: http://192.168.1.177:8080
+        description: File storage
+        icon: nextcloud.png
+        widget:
+            type: nextcloud
+            url: http://192.168.1.177:8080
+            username: dpardo
+            password: jDycy23eMFOpYm
+
+
+- My Third Group:
+    - My Third Service:
+        href: http://localhost/
+        description: Homepage is 😎

@@ -1,6 +1,4 @@
 ## General
-- Add Glances hardware statistics
-- Add Uptime Kuma uptime monitoring
 - Switch dashboard to Glance
 - Go through config for all services
 - Investigate backup routines/services (Proxmox)
