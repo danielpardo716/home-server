@@ -1,10 +1,5 @@
-#
-# WARNING: To install Immich, follow our guide: https://docs.immich.app/install/docker-compose
-#
 # Make sure to use the docker-compose.yml of the current release:
-#
 # https://github.com/immich-app/immich/releases/latest/download/docker-compose.yml
-#
 # The compose file on main may not be compatible with the latest release.
 
 name: immich
@@ -20,8 +15,6 @@ services:
       # Do not edit the next line. If you want to change the media storage location on your system, edit the value of UPLOAD_LOCATION in the .env file
       - ${UPLOAD_LOCATION}:/data
       - /etc/localtime:/etc/localtime:ro
-    env_file:
-      - .env
     ports:
       - '2283:2283'
     depends_on:
@@ -41,8 +34,6 @@ services:
     #   service: cpu # set to one of [armnn, cuda, rocm, openvino, openvino-wsl, rknn] for accelerated inference - use the `-wsl` version for WSL2 where applicable
     volumes:
       - model-cache:/cache
-    env_file:
-      - .env
     restart: always
     healthcheck:
       disable: false
@@ -72,3 +63,8 @@ services:
 
 volumes:
   model-cache:
+
+networks:
+  default:
+    name: home-server
+    external: true
