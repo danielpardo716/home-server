@@ -3,24 +3,12 @@ services:
     image: ghcr.io/home-assistant/home-assistant:stable
     container_name: homeassistant
     restart: unless-stopped
+    privileged: true
+    network_mode: host
+    environment:
+      - TZ=America/New_York
     volumes:
-      - ./data/homeassistant:/config
-    ports:
-      - "8123:8123"
-    depends_on:
-      - mqtt
-
-  mqtt:
-    image: eclipse-mosquitto:latest
-    container_name: mqtt
-    restart: unless-stopped
-    volumes:
-      - ./data/mosquitto/config:/mosquitto/config
-      - ./data/mosquitto/data:/mosquitto/data
-      - ./data/mosquitto/log:/mosquitto/log
-    ports:
-      - "1883:1883"
-      - "9001:9001"
+      - ./config:/config
 
 networks:
   default:
